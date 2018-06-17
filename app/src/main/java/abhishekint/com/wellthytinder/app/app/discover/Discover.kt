@@ -1,4 +1,4 @@
-package abhishekint.com.wellthytinder.app.tab3
+package abhishekint.com.wellthytinder.app.discover
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

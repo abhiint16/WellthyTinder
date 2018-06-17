@@ -1,4 +1,4 @@
-package abhishekint.com.wellthytinder.app
+package abhishekint.com.wellthytinder.app.app
 
 import abhishekint.com.wellthytinder.R
 import abhishekint.com.wellthytinder.databinding.ActivityMainBinding

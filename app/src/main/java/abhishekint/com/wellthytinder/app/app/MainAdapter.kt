@@ -1,8 +1,8 @@
-package abhishekint.com.wellthytinder.app
+package abhishekint.com.wellthytinder.app.app
 
-import abhishekint.com.wellthytinder.app.tab1.Connect
-import abhishekint.com.wellthytinder.app.tab2.Chat
-import abhishekint.com.wellthytinder.app.tab3.Discover
+import abhishekint.com.wellthytinder.app.connect.Connect
+import abhishekint.com.wellthytinder.app.chat.Chat
+import abhishekint.com.wellthytinder.app.discover.Discover
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
