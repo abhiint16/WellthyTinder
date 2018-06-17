@@ -3,6 +3,7 @@ package abhishekint.com.wellthytinder.app.app
 import abhishekint.com.wellthytinder.R
 import abhishekint.com.wellthytinder.databinding.ActivityMainBinding
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
@@ -27,5 +28,6 @@ class MainActivity : AppCompatActivity()
 
     private fun setupTabs() {
         binding.toolbar?.tabs?.setupWithViewPager(binding.pager)
+        binding.toolbar?.tabs?.setTabTextColors(Color.WHITE,Color.GREEN)
     }
 }

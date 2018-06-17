@@ -1,8 +1,8 @@
 package abhishekint.com.wellthytinder.app.app
 
-import abhishekint.com.wellthytinder.app.connect.Connect
-import abhishekint.com.wellthytinder.app.chat.Chat
-import abhishekint.com.wellthytinder.app.discover.Discover
+import abhishekint.com.wellthytinder.app.connect.ConnectFrag
+import abhishekint.com.wellthytinder.app.chat.ChatFrag
+import abhishekint.com.wellthytinder.app.discover.DiscoverFrag
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -17,9 +17,9 @@ class MainAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     // This method returns fragment to each position
     override fun getItem(position: Int): Fragment? {
         when (position) {
-            0 -> return Connect()
-            1 -> return Chat()
-            2 -> return Discover()
+            0 -> return ConnectFrag()
+            1 -> return ChatFrag()
+            2 -> return DiscoverFrag()
             else -> return null
         }
     }
@@ -32,9 +32,9 @@ class MainAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     // This method returns title to each fragment
     override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
-            0 -> return "Connect"
-            1 -> return "Chat"
-            2 -> return "Discover"
+            0 -> return "A"
+            1 -> return "B"
+            2 -> return "C"
         }
         return null
     }
