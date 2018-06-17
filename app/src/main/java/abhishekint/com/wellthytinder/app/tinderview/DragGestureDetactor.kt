@@ -10,7 +10,8 @@ import android.view.MotionEvent
 /**
  * Created by abhishek on 18-06-2018.
  */
-class DragGestureDetector(context: Context, internal var mListener: DragListener?) {
+
+class DragGestureDetactor(context: Context, internal var mListener: DragListener?) {
     internal var mGestrueDetector: GestureDetectorCompat
     private var mStarted = false
     private var mDown = false

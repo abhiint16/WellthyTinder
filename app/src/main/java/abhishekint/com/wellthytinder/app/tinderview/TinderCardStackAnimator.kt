@@ -2,6 +2,7 @@ package abhishekint.com.wellthytinder.app.tinderview
 
 import abhishekint.com.wellthytinder.R
 import android.content.Context
+import android.view.MotionEvent
 import android.view.View
 import android.widget.RelativeLayout
 import java.util.ArrayList
@@ -16,6 +17,7 @@ class TinderCardStackAnimator(var mCardCollection: ArrayList<View>, val context:
     private lateinit var baseLayout: RelativeLayout.LayoutParams
     private var mStackMargin = 21              //set the margin of cardstack
     private val mRemoteLayouts = arrayOfNulls<RelativeLayout.LayoutParams>(4)   //creating the four list of stack
+    private var mRotation: Float = 0.toFloat() //dislike rotation value
 
 ////////////////////////////////return the top view of stack.///////////////////////////////////////////////////
 
@@ -92,5 +94,34 @@ class TinderCardStackAnimator(var mCardCollection: ArrayList<View>, val context:
 
     companion object {
         private val REMOTE_DISTANCE = 1000
+    }
+
+    //dragging method...it gives the position of object and does the secondary animation of CardStack
+    fun drag(e1: MotionEvent, e2: MotionEvent, distanceX: Float,
+             distanceY: Float) {
+
+        val topView = topView
+        val rotation_coefficient = 20f//
+        val layoutParams = topView.layoutParams as RelativeLayout.LayoutParams
+        val topViewLayouts = mLayoutsMap[topView]
+        val x_diff = (e2.rawX - e1.rawX).toInt()
+        val y_diff = (e2.rawY - e1.rawY).toInt()
+        layoutParams.leftMargin = topViewLayouts!!.leftMargin + x_diff
+        layoutParams.rightMargin = topViewLayouts.rightMargin - x_diff
+        layoutParams.topMargin = topViewLayouts.topMargin + y_diff
+        layoutParams.bottomMargin = topViewLayouts.bottomMargin - y_diff
+
+        mRotation = x_diff / rotation_coefficient
+        topView.rotation = mRotation
+        topView.layoutParams = layoutParams
+
+        //animate secondary views.
+        for (v in mCardCollection) {
+            val index = mCardCollection.indexOf(v)
+            if (v != topView && index != 0) {
+                val l = TinderCardUtils.scaleFrom(v, mLayoutsMap[v], (Math.abs(x_diff) * 0.05).toInt())
+                TinderCardUtils.moveFrom(v, l, 0, (Math.abs(x_diff) * 0.1).toInt())
+            }
+        }
     }
 }
