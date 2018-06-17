@@ -1,9 +1,14 @@
 package abhishekint.com.wellthytinder.app.tinderview
 
 import abhishekint.com.wellthytinder.R
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import android.content.Context
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.RelativeLayout
 import java.util.ArrayList
 import java.util.HashMap
@@ -122,6 +127,99 @@ class TinderCardStackAnimator(var mCardCollection: ArrayList<View>, val context:
                 val l = TinderCardUtils.scaleFrom(v, mLayoutsMap[v], (Math.abs(x_diff) * 0.05).toInt())
                 TinderCardUtils.moveFrom(v, l, 0, (Math.abs(x_diff) * 0.1).toInt())
             }
+        }
+    }
+
+    //using to set the discard animation of CardStack into ArrayList<Animator>
+    fun discard(direction: Int, al: Animator.AnimatorListener) {
+        val `as` = AnimatorSet()
+        val aCollection = ArrayList<Animator>()
+        val topView = topView
+        val topParams = topView.layoutParams as RelativeLayout.LayoutParams
+        val layout = RelativeLayout.LayoutParams(topParams)
+        val discardAnim = ValueAnimator.ofObject(RelativeLayoutParamsEvaluator(), layout, mRemoteLayouts[direction])
+
+        discardAnim.addUpdateListener { value -> topView.layoutParams = value.animatedValue as RelativeLayout.LayoutParams }
+
+        discardAnim.duration = 100//setting the discard removed animation time in ms.
+        aCollection.add(discardAnim)//putting the discardAnimation to animation ArrayLIst
+
+        for (i in mCardCollection.indices) {
+            val v = mCardCollection[i]
+
+            if (v === topView) continue
+            val nv = mCardCollection[i + 1]
+            val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
+            val endLayout = RelativeLayout.LayoutParams(layoutParams)
+            val layoutAnim = ValueAnimator.ofObject(RelativeLayoutParamsEvaluator(), endLayout, mLayoutsMap!![nv])
+            layoutAnim.duration = 100
+            layoutAnim.addUpdateListener { value -> v.layoutParams = value.animatedValue as RelativeLayout.LayoutParams }
+            aCollection.add(layoutAnim)
+        }
+
+        `as`.addListener(object : AnimatorListenerAdapter() {
+
+
+            override fun onAnimationEnd(animation: Animator) {
+                reorder()
+                al.onAnimationEnd(animation)
+                mLayoutsMap = HashMap()
+                for (v in mCardCollection) {
+                    val params = v.layoutParams as RelativeLayout.LayoutParams
+                    val paramsCopy = RelativeLayout.LayoutParams(params)
+                    mLayoutsMap!!.put(v, paramsCopy)
+                }
+            }
+        })
+
+        `as`.playTogether(aCollection)
+        `as`.start()
+    }
+
+    //even card is dragged and not discarded by the user then again this card will come on the top of the stack..
+    //this method will give the animation of reverse along with the reverse animation duration
+    // time in ms... which is I defined as 250
+
+    fun reverse(e1: MotionEvent, e2: MotionEvent) {
+        val topView = topView
+        val rotationAnim = ValueAnimator.ofFloat(mRotation, 0f)
+        rotationAnim.duration = 250
+        rotationAnim.addUpdateListener { v -> topView.rotation = v.animatedValue as Float }
+
+        rotationAnim.start()//start the animation
+
+        for (v in mCardCollection) {
+            val layoutParams = v.layoutParams as RelativeLayout.LayoutParams
+            val endLayout = RelativeLayout.LayoutParams(layoutParams)
+            val layoutAnim = ValueAnimator.ofObject(RelativeLayoutParamsEvaluator(), endLayout, mLayoutsMap!![v])
+            layoutAnim.duration = 250
+            layoutAnim.addUpdateListener { value -> v.layoutParams = value.animatedValue as RelativeLayout.LayoutParams }
+            layoutAnim.start()
+        }
+
+    }
+
+    //rearrange the mCardCollection list...
+    //
+    private fun reorder() {
+        val temp = topView
+        moveToBack(temp)
+        for (i in mCardCollection.size - 1 downTo 1) {
+
+            val current = mCardCollection[i - 1]
+            //current replace next
+            mCardCollection[i] = current
+        }
+        mCardCollection[0] = temp
+
+        // temp = getTopView();
+    }
+
+    private fun moveToBack(child: View) {
+        val parent = child.parent as ViewGroup
+        if (null != parent) {
+            parent.removeView(child)
+            parent.addView(child, 0)
         }
     }
 }
