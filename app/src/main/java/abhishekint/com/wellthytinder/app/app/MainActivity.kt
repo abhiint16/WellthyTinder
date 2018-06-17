@@ -16,5 +16,16 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setupPager()
+        setupTabs()
+    }
+
+    private fun setupPager() {
+        val adapter= MainAdapter(supportFragmentManager)
+        binding.pager.adapter=adapter
+    }
+
+    private fun setupTabs() {
+        binding.toolbar?.tabs?.setupWithViewPager(binding.pager)
     }
 }
