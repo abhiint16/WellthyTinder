@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
         android:id="@+id/frame_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <abhishekint.com.wellthytinder.app.tinderview.TinderCardStack
+            android:id="@+id/frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="30dp">
+        </abhishekint.com.wellthytinder.app.tinderview.TinderCardStack>
     </FrameLayout>
 </layout>

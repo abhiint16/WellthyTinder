@@ -118,6 +118,14 @@ class TinderCardStack : RelativeLayout {
             }
 
         })
+        mOnTouchListener = object : View.OnTouchListener {
+
+            override fun onTouch(arg0: View, event: MotionEvent): Boolean {
+                dd.onTouchEvent(event)
+                return true
+            }
+        }
+        cardView.setOnTouchListener(mOnTouchListener)
     }
 
     private fun loadLast() {
@@ -184,6 +192,10 @@ class TinderCardStack : RelativeLayout {
 
     fun setContentResource(res: Int) {
         mContentResource = res
+    }
+
+    fun setListener(cel: TinderCardEventListener) {
+        mEventListener = cel
     }
 
     interface TinderCardEventListener {

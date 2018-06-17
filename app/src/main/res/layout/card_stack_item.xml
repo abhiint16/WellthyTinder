@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--this design provide view to CardStack object-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top">
+
+        <!--in center of card it displays the number of CardStack-->
+        <TextView
+            android:id="@+id/helloText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="40sp"
+            tools:text="" />
+
+    </FrameLayout>
+</layout>
