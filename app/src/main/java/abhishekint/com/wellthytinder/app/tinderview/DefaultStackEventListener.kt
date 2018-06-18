@@ -3,6 +3,8 @@ package abhishekint.com.wellthytinder.app.tinderview
 /**
  * Created by abhishek on 18-06-2018.
  */
+
+// This checks for the threshold. If the swipe crosses the threshold then it returns true otherwise faalse.
 class DefaultStackEventListener : TinderCardStack.TinderCardEventListener {
     private var mThreshold = 0
 

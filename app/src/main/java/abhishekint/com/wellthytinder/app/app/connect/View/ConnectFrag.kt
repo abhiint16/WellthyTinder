@@ -39,7 +39,6 @@ class ConnectFrag : Fragment()
     }
 
     private fun initAdapter() {
-
         tinderCardArrayAdapter= TinderCardArrayAdapter(activity!!.applicationContext,0)
         tinderCardArrayAdapter.addAll(adapterData)
         binding.frame.setContentResource(R.layout.card_stack_item)

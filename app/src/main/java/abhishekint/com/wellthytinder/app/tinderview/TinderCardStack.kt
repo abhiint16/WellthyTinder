@@ -17,6 +17,8 @@ import java.util.ArrayList
 /**
  * Created by abhishek on 17-06-2018.
  */
+
+// This is CustomView that creates stack of card
 class TinderCardStack : RelativeLayout {
     private var mIndex = 0
     private var mNumVisible = 4

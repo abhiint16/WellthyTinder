@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity()
     private fun setupPager() {
         val adapter= MainAdapter(supportFragmentManager)
         binding.pager.adapter=adapter
-        binding.pager.offscreenPageLimit=2
+        binding.pager.offscreenPageLimit=2                  // setting offscreenlimit to 2 so that pager retains the state of upto 3 fragments
     }
 
     private fun setupTabs() {
