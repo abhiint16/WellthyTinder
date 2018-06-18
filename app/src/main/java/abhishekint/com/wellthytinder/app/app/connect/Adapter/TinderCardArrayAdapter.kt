@@ -1,4 +1,4 @@
-package abhishekint.com.wellthytinder.app.app.connect
+package abhishekint.com.wellthytinder.app.app.connect.Adapter
 
 import abhishekint.com.wellthytinder.databinding.CardStackItemBinding
 import android.content.Context
