@@ -11,16 +11,16 @@ import java.util.ArrayList
  */
 class ConnectRepository
 {
-    internal lateinit var jsonToString: JsonToString
+    internal var jsonToString: JsonToString
 
     constructor(jsonToString: JsonToString) {
         this.jsonToString = jsonToString
     }
 
 
-    fun getCardData(): ArrayList<ConnectViewModel> {
+    fun getCardData(): ArrayList<String> {
         val dataString = jsonToString.loadJSONFromAsset()
-        val connectViewModelList = ArrayList<ConnectViewModel>()
+        val connectViewModelList = ArrayList<String>()
         try {
             val obj = JSONObject(dataString)
             val jArray = obj.getJSONArray("Item")
@@ -29,8 +29,7 @@ class ConnectRepository
                 val jo_inside = jArray.getJSONObject(i)
                 val cardName = jo_inside.getString("item")
 
-                val connectViewModel = ConnectViewModel(cardName)
-                connectViewModelList.add(connectViewModel)
+                connectViewModelList.add(cardName)
             }
             return connectViewModelList
         } catch (e: JSONException) {

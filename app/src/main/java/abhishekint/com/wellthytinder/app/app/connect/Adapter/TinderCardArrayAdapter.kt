@@ -1,8 +1,11 @@
 package abhishekint.com.wellthytinder.app.app.connect.Adapter
 
+import abhishekint.com.wellthytinder.R
+import abhishekint.com.wellthytinder.app.app.connect.ViewModel.ConnectViewModel
 import abhishekint.com.wellthytinder.databinding.CardStackItemBinding
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -16,10 +19,9 @@ class TinderCardArrayAdapter(context: Context, resource: Int) : ArrayAdapter<Str
     override fun getView(position: Int, contentView: View?, parent: ViewGroup): View {
         //supply the layout for your card
         binding= DataBindingUtil.bind(contentView!!)!!
-        //val v = contentView!!.findViewById<TextView>(R.id.helloText)
         val v=binding.helloText
         v.text = getItem(position)
-        return contentView
+        return binding.root
     }
 
 }
